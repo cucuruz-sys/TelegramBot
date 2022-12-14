@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path="D:\\SelDrivers\\chromedriver.exe")
 driver.get("http://www.python.org")
 assert "Python" in driver.title
 elem = driver.find_element_by_name("q")
