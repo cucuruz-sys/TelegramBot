@@ -47,7 +47,7 @@ vk = Bot(bot_token, bot_group_id)
 async def privet(message: Message):
     # Ответ на сообщение
     await message.answer('Приветик!')
-
+#
 vk.run_forever()
 '''
 for event in longpoll.listen():
