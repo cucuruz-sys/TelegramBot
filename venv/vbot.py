@@ -137,7 +137,7 @@ async def specialty_part(message: Message):
         message='Факультет: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text("Автоматизация и интеллектуальные технологии"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
                 .row()
@@ -154,7 +154,7 @@ async def specialty_part(message: Message):
     )
 
 
-@vk.on.private_message(text=["Автоматизация и интеллектуальные технологии"])
+@vk.on.private_message(text=["АИТ"])
 async def AIT(message: Message):
     await message.answer(
         message='Формат обучения: ',
