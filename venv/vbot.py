@@ -14,6 +14,11 @@ from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
 
 
+napravl=0
+format=0
+ekz=0
+
+
 class VkBot:
     token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
     bot_token = token
@@ -105,6 +110,8 @@ async def menu(message: Message):
             Keyboard(one_time=False, inline=False)
                 .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
                 .row()
+                .add(Text("Необходимые вступительные испытания"), color=KeyboardButtonColor.POSITIVE)
+                .row()
                 .add(Text("Главные даты приёмной комиссии"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Минимальные проходные баллы"), color=KeyboardButtonColor.POSITIVE)
@@ -130,7 +137,7 @@ async def specialty_part(message: Message):
         message='Факультет: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Автоматизация и интеллектуальные технологии"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
                 .row()
@@ -147,18 +154,20 @@ async def specialty_part(message: Message):
     )
 
 
-@vk.on.private_message(text=["АИТ"])
+@vk.on.private_message(text=["Автоматизация и интеллектуальные технологии"])
 async def AIT(message: Message):
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=1)
+                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=2)
                 .row()
-                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE, format=3)
+
         )
     )
+    print(x)
 #jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])

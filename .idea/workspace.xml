@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="vkbot">
-      <change beforePath="$PROJECT_DIR$/.idea/TelegramBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TelegramBot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/vbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/vbot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Beautiful_soup_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Beautiful_soup_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,10 +169,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.2" />
       <item itemvalue="Python.Images" />
       <item itemvalue="Python.Parser" />
+      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.gitgovno" />
       <item itemvalue="Python.vbot" />
     </list>
