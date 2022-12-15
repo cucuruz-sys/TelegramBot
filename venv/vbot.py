@@ -8,7 +8,6 @@ from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
 from vkbottle.bot import Bot, Message
 from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
-# import Keyboard
 from random import randint
 
 
@@ -29,10 +28,6 @@ from random import randint
         return user_name.split()[0]
 
 '''
-
-
-def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id": randint(0, 100000)})
 
 
 token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
