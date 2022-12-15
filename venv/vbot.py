@@ -14,7 +14,6 @@ from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
 
 
-
 class VkBot:
     napravl = 0
     format = 0
@@ -51,9 +50,68 @@ class VkBot:
 
 bot = VkBot()
 vk = bot.get_Vk()
+sqlite_create_table_query = ''
 
 
-@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin) # обработка подписки
+def createDb():
+    global sqlite_connection
+    try:
+        sqlite_connection = sqlite3tools1.connect('sqlite_python.db')
+        cursor = sqlite_connection.cursor()
+        print("База данных создана и успешно подключена к SQLite")
+        sqlite_select_query = "select sqlite_version();"
+        cursor.execute(sqlite_select_query)
+        record = cursor.fetchall()
+        print("Версия базы данных SQLite: ", record)
+        cursor.close()
+
+    except:
+        print("Ошибка при подключении к sqlite")
+
+
+def createTables():
+    try:
+        sqlite_connection = sqlite3tools1.connect('sqlite_python.db')
+        sqlite_create_table_query1 = '''CREATE TABLE users (
+                                    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    username TEXT NOT NULL);'''
+        sqlite_create_table_query2 = '''CREATE TABLE messages (
+                                           message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                           user_id TEXT NOT NULL,
+                                           FOREIGN KEY(user_id) REFERENCES users(user_id),
+                                           message TEXT NOT NULL);'''
+        cursor = sqlite_connection.cursor()
+        print("База данных подключена к SQLite")
+        cursor.execute(sqlite_create_table_query1)
+        cursor.execute(sqlite_create_table_query2)
+        sqlite_connection.commit()
+        print("Таблица SQLite создана")
+
+        cursor.close()
+
+    except sqlite3tools1.Error as error:
+        print("Ошибка при подключении к sqlite", error)
+    finally:
+        if (sqlite_connection):
+            sqlite_connection.close()
+            print("Соединение с SQLite закрыто")
+
+
+def insertUsers(username):
+    sqlite_connection = sqllite3tools1.connect('sqlite_python.db')
+    name = username
+    sqlite_insert_table_query = '''INSERT INTO users (name)'''
+
+    cursor = sqlite_connection.cursor()
+    cursor.execute(sqlite_insert_table_query)
+
+
+def get_name(uid: int) -> str:
+    data = vk.method("users.get", {"user_ids": message_new_handler()})[0]
+    return "{} {}".format(data["first_name"], data["last_name"])
+
+
+@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin)  # обработка подписки
 async def group_join_handler(event: GroupTypes.GroupJoin):
     try:
         await vk.api.messages.send(
@@ -66,8 +124,13 @@ async def group_join_handler(event: GroupTypes.GroupJoin):
     except VKAPIError(901):
         pass
 
-#
-@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin) # обработка отписки
+
+''''@vk.on.raw_event(GroupEventType.MESSAGE_NEW, dataclass=GroupTypes.MessageNew)
+async def message_new_handler(event: GroupTypes.MessageNew):
+    return event.user_id'''
+
+
+@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin)  # обработка отписки
 async def group_join_handler(event: GroupTypes.GroupLeave):
     try:
         await vk.api.messages.send(
@@ -84,7 +147,7 @@ async def group_join_handler(event: GroupTypes.GroupLeave):
 # Сама функция:
 async def privet(message: Message):
     # Ответ на сообщение
-    await message.answer('Приветик!')
+    await message.answer('Приветик!' + get_name(message_new_handler()))
 
 
 #
@@ -164,7 +227,7 @@ async def specialty_part(message: Message):
 
 @vk.on.private_message(text=["АИТ"])
 async def AIT(message: Message):
-    bot.napravl=1
+    bot.napravl = 1
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -178,7 +241,9 @@ async def AIT(message: Message):
                 .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
-#jopa
+
+
+# jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
@@ -199,7 +264,7 @@ async def full_time_AIT(message: Message):
 
 @vk.on.private_message(text=['Заочное обучение(АИТ)'])
 async def remote_AIT(message: Message):
-    bot.format=2
+    bot.format = 2
     str = bot.get_napr()
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
@@ -208,7 +273,8 @@ async def remote_AIT(message: Message):
             .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
             .row()
             .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE))
-        )
+                         )
+
 
 @vk.on.private_message(text=['Очно-заочное(АИТ)'])
 async def spec_AIT(message: Message):
@@ -222,6 +288,7 @@ async def spec_AIT(message: Message):
             .row()
             .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE))
                          )
+
 
 @vk.on.private_message(text=['Промышленное и гражданское строительство'])
 async def PGS(message: Message):
@@ -253,7 +320,6 @@ async def full_time_PGS(message: Message):
             .row()
             .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
     ))
-
 
 
 @vk.on.private_message(text=['Заочное обучение(ПГС)'])
@@ -367,8 +433,9 @@ async def full_time_TES(message: Message):
     napravl = 4
     format = 1
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -384,8 +451,9 @@ async def remote_TES(message: Message):
     napravl = 4
     format = 2
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -401,8 +469,9 @@ async def spec_TES(message: Message):
     napravl = 4
     format = 3
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -436,8 +505,9 @@ async def full_time_UPL(message: Message):
     napravl = 5
     format = 1
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -453,8 +523,9 @@ async def remote_UPL(message: Message):
     napravl = 5
     format = 2
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -506,8 +577,9 @@ async def full_time_FBFO(message: Message):
     napravl = 6
     format = 1
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -523,8 +595,9 @@ async def remote_FBFO(message: Message):
     napravl = 6
     format = 2
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -540,8 +613,9 @@ async def spec_FBFO(message: Message):
     napravl = 6
     format = 3
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -575,8 +649,9 @@ async def full_time_EiT(message: Message):
     napravl = 7
     format = 1
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -592,8 +667,9 @@ async def remote_EiT(message: Message):
     napravl = 7
     format = 2
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -609,8 +685,9 @@ async def spec_EiT(message: Message):
     napravl = 7
     format = 3
     str = ""
-    for el in napr_podg_func(napravl,format):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str, keyboard=(
         Keyboard(one_time=False, inline=False)
             .add(Text("Направления подготовки и специальности"))
@@ -620,57 +697,68 @@ async def spec_EiT(message: Message):
             .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
     ))
 
+
 @vk.on.private_message(text=["Необходимые вступительные испытания"])
 async def ekz_part(message: Message):
     await message.answer(
         message='Сданые экзамены: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text("Русский язык,Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык, Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык,Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык, Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык,Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык, Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык,Математика, Физика/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык, Математика, Физика/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык,Математика, Общ/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык, Математика, Общ/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
-@vk.on.private_message(text=['Русский язык,Математика, Физика'])
+
+@vk.on.private_message(text=['Русский язык, Математика, Физика'])
 async def ekz_part_rmf(message: Message):
     str = ""
     for el in sdan_ekz_func(1):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + " " + el[1][1] + " " + \
+               el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык,Математика, Обществознание'])
+
+@vk.on.private_message(text=['Русский язык, Математика, Обществознание'])
 async def ekz_part_rmo(message: Message):
     str = ""
     for el in sdan_ekz_func(2):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + " " + el[1][1] + " " + \
+               el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык,Математика, Биология'])
+
+@vk.on.private_message(text=['Русский язык, Математика, Биология'])
 async def ekz_part_rmb(message: Message):
     str = ""
     for el in sdan_ekz_func(3):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + " " + el[1][1] + " " + \
+               el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык,Математика, Физика/(ИКТ)'])
+
+@vk.on.private_message(text=['Русский язык, Математика, Физика/(ИКТ)'])
 async def ekz_part_rmfi(message: Message):
     str = ""
     for el in sdan_ekz_func(4):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + " " + el[1][1] + " " + \
+               el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык,Математика, Общ/(ИКТ)'])
+
+@vk.on.private_message(text=['Русский язык, Математика, Общ/(ИКТ)'])
 async def ekz_part_rmoi(message: Message):
     str = ""
     for el in sdan_ekz_func(5):
-        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + " " + el[1][1] + " " + \
+               el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
 
@@ -695,6 +783,7 @@ async def menu(message: Message):
 async def min_points_part(message: Message):
     await message.answer("Часть 1:", attachment=o_ege1)
     await message.answer("Часть 2:", attachment=o_ege2)
+
 
 @vk.on.private_message(text=['Заочное обучение'])
 # Сама функция:
@@ -742,41 +831,25 @@ async def questions_answers_part(message: Message):
 # Сама функция:
 async def contacts_part(message: Message):
     # Ответ на сообщение
-    await message.answer('Это раздел контактов!')
+    await message.answer('Бакалавриат, специалитет, магистратура:' +
+                         '\nТелефон:8 (800) 200-97-90, 8 (812) 457-82-42' +
+                         '\nПочта:primkom@pgups.ru' +
+                         '\n' +
+                         '\nАспирантура:' +
+                         '\nТелефон:8 (812) 457-80-97' +
+                         '\nПочта:asp@pgups.ru')
 
 
 @vk.on.private_message(text=['Оставить заявку'])
 # Сама функция:
 async def write_part(message: Message):
-    # Ответ на сообщение
-    await message.answer('Это раздел!')
+    await message.answer('Здравствуйте')
 
 
-@vk.on.private_message(text=['+рассылка <txt>'])
-async def lsmsg(message: Message, txt):
-    if message.from_id == 518705815:
-        start_time = time.time()
-        conversations = await vk.api.messages.get_conversations(count=1, offset=0)
-        b = 0
-        user_name = await vk.api.users.get(message.from_id)
-        for i in range(conversations.count):
-            for offsett in range(conversations.count):
-                conversations1 = await vk.api.messages.get_conversations(count=1, offset=offsett)
-                try:
-                    a = conversations1.items[i].conversation.can_write.allowed
-                    if a == True:
-                        b += 1
-                        await vk.api.messages.send(peer_id=conversations1.items[i].conversation.peer.id, random_id=0,
-                                                   message=txt)
-                        print('Готово')
-                except:
-                    pass
-            break
-        end_time = time.time()
-        await vk.api.messages.send(peer_ids=[518705815], random_id=0,
-                                   message=f'Рассылка завершена за {round(end_time - start_time, 1)} секунд\nБыло найдено {conversations.count} человек\nОтослал {b} людям\nСоздал рассылку [id{message.from_id}|{user_name[0].first_name}]')
+createDb()
 
-
+# if sqlite_create_table_query == null:
+#    createTables()
 
 bot.runBot()
 
