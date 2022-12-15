@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from bs4 import NavigableString
 import requests
 import json
 
@@ -19,4 +20,43 @@ def proh_ball_func():
         proh_ball.append([ele for ele in cols if ele])
     return proh_ball
 
+def napr_podg_func(fac, forma):
 
+    main_url = "https://priem.pgups.ru/src/specialization.php"
+
+    HEADERS = {
+
+    }
+    DATA = {
+        'submitted': 1,
+        'form': [],
+        'fclt': [],
+        'cost': '30000,130000'
+    }
+
+    if (fac==1):
+        DATA['fclt'].append("Автоматизация и интеллектуальные технологии")
+    elif (fac==2):
+        DATA['fclt'].append("Промышленное и гражданское строительство")
+    elif (fac==3):
+        DATA['fclt'].append("Транспортное строительство")
+    elif (fac==4):
+        DATA['fclt'].append("Транспортные и энергетические системы")
+    elif (fac==5):
+        DATA['fclt'].append("Управление перевозками и логистика")
+    elif (fac==6):
+        DATA['fclt'].append("Факультет безотрывных форм обучения")
+    elif (fac==7):
+        DATA['fclt'].append("Экономика и менеджмент")
+    else:
+        print("Code fac not found")
+
+    DATA['form'].append(forma)
+
+    req = requests.get(main_url, headers=HEADERS, params = DATA)
+    soup = BeautifulSoup(req.text, 'html.parser')
+
+    res=[]
+    for x in soup.findAll("div", class_="education__name"):
+        res.append(x.text.strip())
+    return res
