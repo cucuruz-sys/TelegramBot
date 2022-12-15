@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="vkbot">
+    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="work on vbot">
+    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/Beautiful_soup_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Beautiful_soup_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/vbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/vbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,10 +170,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.2" />
       <item itemvalue="Python.Images" />
       <item itemvalue="Python.Parser" />
-      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.gitgovno" />
       <item itemvalue="Python.vbot" />
     </list>
@@ -307,7 +308,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671098902266</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="work on vbot">
+      <created>1671108563258</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1671108563258</updated>
+    </task>
+    <task id="LOCAL-00018" summary="work on vbot">
+      <created>1671108693976</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1671108693976</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,6 +344,7 @@
     <MESSAGE value="." />
     <MESSAGE value="vk api нахуй" />
     <MESSAGE value="vkbot" />
-    <option name="LAST_COMMIT_MESSAGE" value="vkbot" />
+    <MESSAGE value="work on vbot" />
+    <option name="LAST_COMMIT_MESSAGE" value="work on vbot" />
   </component>
 </project>
