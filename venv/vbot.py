@@ -4,9 +4,19 @@ from random import randint
 from vk_api.longpoll import VkLongPoll, VkEventType
 
 
+class Vk_bot:
+
+    def __init__(self):
+        self._USER_ID = user_id
+        self._USERNAME = self._get_user_name_from_vk_id(user_id)
+        self._COMMANDS = ["Старт", "Главный раздел", "Направления подготовки и специальности",
+                          "Главные даты приёмной комиссии", "Минимальные проходные баллы", "Дополнительное обучение",
+                          "Платные образовательные услуги", "Об университете", "Вопросы и ответы", "Контакты",
+                          "Оставить заявку"]
+
 
 def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id" : randint(0, 1000000)})
+    vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id": randint(0, 1000000)})
 
 
 token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
@@ -42,7 +52,6 @@ for event in longpoll.listen():
                 x = 0
             if request == "Оставить заявку":
                 x = 0
-
 
 if __name__ == '__main__':
     main()
