@@ -456,47 +456,47 @@ async def ekz_part(message: Message):
         message='Сданые экзамены: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text("Русский язык, Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык,Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык, Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык,Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык, Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык,Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык, Математика, Физика (ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык,Математика, Физика/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Русский язык, Математика, Обществознание (ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Русский язык,Математика, Общ/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
-@vk.on.private_message(text=['Русский язык, Математика, Физика'])
+@vk.on.private_message(text=['Русский язык,Математика, Физика'])
 async def ekz_part_rmf(message: Message):
     str = ""
     for el in sdan_ekz_func(1):
         str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык, Математика, Обществознание'])
+@vk.on.private_message(text=['Русский язык,Математика, Обществознание'])
 async def ekz_part_rmo(message: Message):
     str = ""
     for el in sdan_ekz_func(2):
         str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык, Математика, Биология'])
+@vk.on.private_message(text=['Русский язык,Математика, Биология'])
 async def ekz_part_rmb(message: Message):
     str = ""
     for el in sdan_ekz_func(3):
         str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык, Математика, Физика (ИКТ)'])
+@vk.on.private_message(text=['Русский язык,Математика, Физика/(ИКТ)'])
 async def ekz_part_rmfi(message: Message):
     str = ""
     for el in sdan_ekz_func(4):
         str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
     await message.answer(message=str)
 
-@vk.on.private_message(text=['Русский язык, Математика, Обществознание (ИКТ)'])
+@vk.on.private_message(text=['Русский язык,Математика, Общ/(ИКТ)'])
 async def ekz_part_rmoi(message: Message):
     str = ""
     for el in sdan_ekz_func(5):
