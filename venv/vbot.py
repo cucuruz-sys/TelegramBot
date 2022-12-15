@@ -13,7 +13,7 @@ from vkbottle.tools import DocMessagesUploader
 from vkbottle.tools import PhotoMessageUploader
 from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
-
+#
 napravl = 0
 format = 0
 ekz = 0
