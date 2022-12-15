@@ -3,7 +3,7 @@ import asyncio
 import requests
 import bs4
 import time, math
-from Beautiful_soup_parser import proh_ball_func
+from Beautiful_soup_parser import proh_ball_func, napr_podg_func, sdan_ekz_func
 from typing import Optional
 from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError, BaseStateGroup
 from vkbottle.bot import Bot, Message
@@ -174,6 +174,7 @@ async def AIT(message: Message):
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
     format = 1
+    print(napr_podg_func(napravl,format))
     await message.answer()
 
 
@@ -320,7 +321,6 @@ async def remote_UPL(message: Message):
 async def spec_UPL(message: Message):
     format = 3
     await message.answer(message='Подходящие направления: ')
-    print("nigger")
 
 
 @vk.on.private_message(text=['Факультет безотрывных форм обучения'])
