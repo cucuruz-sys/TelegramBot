@@ -43,28 +43,40 @@ async def menu(message: Message):
 
             Keyboard(one_time=False, inline=False)
                 .add(Text('Главный раздел'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Направления подготовки и специальности'), color=KeyboardButtonColor.POSITIVE)
-                .row()
-                .add(Text('Главные даты приёмной комиссии'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Минимальные проходные баллы'), color=KeyboardButtonColor.POSITIVE)
-                .row()
-                .add(Text('Дополнительное обучение'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Платные образовательные услуги'), color=KeyboardButtonColor.POSITIVE)
-                .row()
-                .add(Text('Об университете'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Вопросы и ответы'), color=KeyboardButtonColor.POSITIVE)
-                .row()
-                .add(Text('Контакты'), color=KeyboardButtonColor.POSITIVE)
-                .add(Text('Оставить заявку'), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Главный раздел'])
 # Сама функция:
-async def main_part(message: Message):
-    # Ответ на сообщение
-    await message.answer('Это главный раздел!')
+async def menu(message: Message):
+    await message.answer(
+        # Сообщение при отправлении клавиатуры
+        message='Меню: ',
+        # Клавиатура
+        keyboard=(
+            # one_time - True - одноразовая клавиатура, False - постоянная клавиатура
+            # inline - True - клавиатура прикрепляется к сообщению(РАССМОТРИМ), False - клавиаутра в стандартном положении
+            # .add - добавить кнопку
+            # .row - отступ
+            # Цвета: POSITIVE - Ярко зеленый, SECONDARY(можно нечего не указывать) - БЛЕДНО БЕЛЫЙ
+            # PRIMARY - СИНИЙ, NEGATIVE - КРАСНЫЙ
+            Keyboard(one_time=False, inline=False)
+                .add(Text('Направление подготовки и специальности'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Главные даты приёмной комиссии'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Минимальные проходные баллы"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Дополнительное обучение"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Платные образовательные услуги"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Об университете"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Вопросы и ответы"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Контакты"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Оставить заявку"), color=KeyboardButtonColor.POSITIVE)
+        )
+    )
 
 
 @vk.on.private_message(text=['Направления подготовки и специальности'])

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="vk api нахуй">
+    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="vkbot">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/vbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/vbot.py" afterDir="false" />
     </list>
@@ -154,7 +154,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Nikita Dyachenko\AppData\Local\Programs\Python\Python39\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -293,7 +293,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671097984703</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="vkbot">
+      <created>1671098858750</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1671098858750</updated>
+    </task>
+    <task id="LOCAL-00016" summary="vkbot">
+      <created>1671098902266</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1671098902266</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -306,6 +320,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="nigga" />
@@ -313,6 +328,7 @@
     <MESSAGE value="обновление строки мин баллов" />
     <MESSAGE value="." />
     <MESSAGE value="vk api нахуй" />
-    <option name="LAST_COMMIT_MESSAGE" value="vk api нахуй" />
+    <MESSAGE value="vkbot" />
+    <option name="LAST_COMMIT_MESSAGE" value="vkbot" />
   </component>
 </project>
