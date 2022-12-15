@@ -134,7 +134,7 @@ async def min_points_part(message: Message):
 async def min_points_part(message: Message):
     # Ответ на сообщение
     await message.answer("Раздел заочное обучение")
-
+#
 
 @vk.on.private_message(text=['Минимальные проходные баллы'])
 # Сама функция:
