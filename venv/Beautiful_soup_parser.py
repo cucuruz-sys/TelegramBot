@@ -17,11 +17,3 @@ for row in rows:
     proh_ball.append([ele for ele in cols if ele])
 
 
-
-main_url = "https://priem.pgups.ru/bakalavriat.php"
-req = requests.get(main_url)
-soup = BeautifulSoup(req.text, "html.parser")
-
-img = soup.find("div", {"id": "enrschedule"}).find("img")
-data = json.loads(img["data-a-dynamic-image"])
-print(list(data.keys()))
