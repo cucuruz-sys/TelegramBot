@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="vk api нахуй">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="delet govno">
       <change beforePath="$PROJECT_DIR$/venv/vbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/vbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -291,7 +290,28 @@
       <option name="project" value="LOCAL" />
       <updated>1671097984703</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="апдейт">
+      <created>1671098670737</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1671098670737</updated>
+    </task>
+    <task id="LOCAL-00016" summary="import photomessageuploader">
+      <created>1671098773781</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1671098773781</updated>
+    </task>
+    <task id="LOCAL-00017" summary="delet govno">
+      <created>1671098798278</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1671098798278</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,6 +331,9 @@
     <MESSAGE value="обновление строки мин баллов" />
     <MESSAGE value="." />
     <MESSAGE value="vk api нахуй" />
-    <option name="LAST_COMMIT_MESSAGE" value="vk api нахуй" />
+    <MESSAGE value="апдейт" />
+    <MESSAGE value="import photomessageuploader" />
+    <MESSAGE value="delet govno" />
+    <option name="LAST_COMMIT_MESSAGE" value="delet govno" />
   </component>
 </project>

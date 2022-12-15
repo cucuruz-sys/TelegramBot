@@ -81,12 +81,6 @@ async def menu(message: Message):
         message='Меню: ',
         # Клавиатура
         keyboard=(
-            # one_time - True - одноразовая клавиатура, False - постоянная клавиатура
-            # inline - True - клавиатура прикрепляется к сообщению(РАССМОТРИМ), False - клавиаутра в стандартном положении
-            # .add - добавить кнопку
-            # .row - отступ
-            # Цвета: POSITIVE - Ярко зеленый, SECONDARY(можно нечего не указывать) - БЛЕДНО БЕЛЫЙ
-            # PRIMARY - СИНИЙ, NEGATIVE - КРАСНЫЙ
             Keyboard(one_time=False, inline=False)
                 .add(Text('Очное обучение'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение'), color=KeyboardButtonColor.POSITIVE)
@@ -99,7 +93,6 @@ async def menu(message: Message):
 @vk.on.private_message(text=['Очное обучение'])
 # Сама функция:
 async def min_points_part(message: Message):
-    # Ответ на сообщение
     await message.answer("Часть 1:", attachment=o_ege1)
     await message.answer("Часть 2:", attachment=o_ege2)
 
