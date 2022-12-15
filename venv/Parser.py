@@ -4,10 +4,9 @@ import time
 from selenium.webdriver.common.by import By
 from pathlib import Path
 
-# adapted from http://stackoverflow.com/questions/20716842/python-download-images-from-google-image-search
 from selenium import webdriver
 
-DRIVER_PATH = '../../TelegramBot/chromedriver.exe'
+DRIVER_PATH = '../chromedriver.exe'
 wd = webdriver.Chrome(executable_path=DRIVER_PATH)
 
 def downloadImages(query_item, num_images, directory):
@@ -29,11 +28,10 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver = wd, sl
 		wd.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 		time.sleep(sleep_between_interactions)
 
-	# build the google query
-	search_url = "https://www.google.com/search?safe=off&site=&tbm=isch&source=hp&q={q}&oq={q}&gs_l=img"
+	search_url = "https://priem.pgups.ru/doc_passmark.php"
 
 	# load the page
-	wd.get(search_url.format(q=query))
+	wd.get(search_url)
 
 	image_urls = set()
 	image_count = 0
