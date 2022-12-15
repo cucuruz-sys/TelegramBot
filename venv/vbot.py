@@ -48,7 +48,6 @@ class VkBot:
                 2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
         return str
 
-
 bot = VkBot()
 vk = bot.get_Vk()
 
@@ -364,6 +363,7 @@ async def TES(message: Message):
 
 @vk.on.private_message(text=['Очное обучение(ТЭС)'])
 async def full_time_TES(message: Message):
+    napravl = 4
     format = 1
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -380,6 +380,7 @@ async def full_time_TES(message: Message):
 
 @vk.on.private_message(text=['Заочное обучение(ТЭС)'])
 async def remote_TES(message: Message):
+    napravl = 4
     format = 2
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -396,6 +397,7 @@ async def remote_TES(message: Message):
 
 @vk.on.private_message(text=['Очно-заочное(ТЭС)'])
 async def spec_TES(message: Message):
+    napravl = 4
     format = 3
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -430,6 +432,7 @@ async def UPL(message: Message):
 
 @vk.on.private_message(text=['Очное обучение(УПЛ)'])
 async def full_time_UPL(message: Message):
+    napravl = 5
     format = 1
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -446,6 +449,7 @@ async def full_time_UPL(message: Message):
 
 @vk.on.private_message(text=['Заочное обучение(УПЛ)'])
 async def remote_UPL(message: Message):
+    napravl = 5
     format = 2
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -462,6 +466,7 @@ async def remote_UPL(message: Message):
 
 @vk.on.private_message(text=['Очно-заочное(УПЛ)'])
 async def spec_UPL(message: Message):
+    napravl = 5
     format = 3
     str = ""
     for el in napr_podg_func(napravl, format):
@@ -497,6 +502,7 @@ async def FBFO(message: Message):
 
 @vk.on.private_message(text=['Очное обучение(Факультет безотрывных форм обучения)'])
 async def full_time_FBFO(message: Message):
+    napravl = 6
     format = 1
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -513,6 +519,7 @@ async def full_time_FBFO(message: Message):
 
 @vk.on.private_message(text=['Заочное обучение(Факультет безотрывных форм обучения)'])
 async def remote_FBFO(message: Message):
+    napravl = 6
     format = 2
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -529,6 +536,7 @@ async def remote_FBFO(message: Message):
 
 @vk.on.private_message(text=['Очно-заочное(Факультет безотрывных форм обучения)'])
 async def spec_FBFO(message: Message):
+    napravl = 6
     format = 3
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -563,6 +571,7 @@ async def EiT(message: Message):
 
 @vk.on.private_message(text=['Очное обучение(ЭиМ)'])
 async def full_time_EiT(message: Message):
+    napravl = 7
     format = 1
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -579,6 +588,7 @@ async def full_time_EiT(message: Message):
 
 @vk.on.private_message(text=['Заочное обучение(ЭиМ)'])
 async def remote_EiT(message: Message):
+    napravl = 7
     format = 2
     str = ""
     for el in napr_podg_func(napravl,format):
@@ -595,6 +605,7 @@ async def remote_EiT(message: Message):
 
 @vk.on.private_message(text=['Очно-заочное(ЭиМ)'])
 async def spec_EiT(message: Message):
+    napravl = 7
     format = 3
     str = ""
     for el in napr_podg_func(napravl,format):
