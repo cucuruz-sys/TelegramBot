@@ -55,7 +55,7 @@ async def group_join_handler(event: GroupTypes.GroupJoin):
     except VKAPIError(901):
         pass
 
-
+#
 @vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin) # обработка отписки
 async def group_join_handler(event: GroupTypes.GroupLeave):
     try:
