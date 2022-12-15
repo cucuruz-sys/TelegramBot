@@ -41,7 +41,7 @@ class VkBot:
 
     def runBot(self):
         self.vk.run_forever()
-
+#asd
 
 bot = VkBot()
 vk = bot.get_Vk()
