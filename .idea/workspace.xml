@@ -169,10 +169,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.2" />
       <item itemvalue="Python.Images" />
       <item itemvalue="Python.Parser" />
+      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.gitgovno" />
       <item itemvalue="Python.vbot" />
     </list>
