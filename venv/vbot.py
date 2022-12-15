@@ -3,8 +3,7 @@ import asyncio
 import requests
 import bs4
 import time, math
-import sqllite3
-from Beautiful_soup_parser import proh_ball_func
+from Beautiful_soup_parser import proh_ball_func, napr_podg_func, sdan_ekz_func
 from typing import Optional
 from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError, BaseStateGroup
 from vkbottle.bot import Bot, Message
@@ -13,13 +12,13 @@ from vkbottle.tools import DocMessagesUploader
 from vkbottle.tools import PhotoMessageUploader
 from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
-#
-napravl = 0
-format = 0
-ekz = 0
+
 
 
 class VkBot:
+    napravl = 0
+    format = 0
+    ekz = 0
     token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
     bot_token = token
     bot_group_id = 217770282
@@ -41,13 +40,20 @@ class VkBot:
 
     def runBot(self):
         self.vk.run_forever()
-#asd
+
+    def get_napr(self):
+        str = ""
+        for el in napr_podg_func(self.napravl, self.format):
+            str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+                2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+        return str
+
 
 bot = VkBot()
 vk = bot.get_Vk()
 
 
-@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin)  # обработка подписки
+@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin) # обработка подписки
 async def group_join_handler(event: GroupTypes.GroupJoin):
     try:
         await vk.api.messages.send(
@@ -60,8 +66,8 @@ async def group_join_handler(event: GroupTypes.GroupJoin):
     except VKAPIError(901):
         pass
 
-
-@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin)  # обработка отписки
+#
+@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin) # обработка отписки
 async def group_join_handler(event: GroupTypes.GroupLeave):
     try:
         await vk.api.messages.send(
@@ -110,6 +116,8 @@ async def menu(message: Message):
             Keyboard(one_time=False, inline=False)
                 .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
                 .row()
+                .add(Text("Необходимые вступительные испытания"), color=KeyboardButtonColor.POSITIVE)
+                .row()
                 .add(Text("Главные даты приёмной комиссии"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Минимальные проходные баллы"), color=KeyboardButtonColor.POSITIVE)
@@ -135,7 +143,7 @@ async def specialty_part(message: Message):
         message='Факультет: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text("Автоматизация и интеллектуальные технологии"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
                 .row()
@@ -148,43 +156,76 @@ async def specialty_part(message: Message):
                 .add(Text("Факультет безотрывных форм обучения"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Экономика и менеджмент"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
-@vk.on.private_message(text=["Автоматизация и интеллектуальные технологии"])
+@vk.on.private_message(text=["АИТ"])
 async def AIT(message: Message):
+    bot.napravl=1
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=1)
-                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=2)
+                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE, format=3)
-
+                .add(Text("Очно-заочное(АИТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
-    print(x)
-
+#jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
-    await message.answer()
+    bot.napravl = 1
+    bot.format = 1
+    str = bot.get_napr()
+    print(bot.napravl)
+    print(bot.format)
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(АИТ)'])
 async def remote_AIT(message: Message):
-    await message.answer()
+    bot.format=2
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE))
+        )
 
-
-@vk.on.private_message(text=['Особая квота(АИТ)'])
+@vk.on.private_message(text=['Очно-заочное(АИТ)'])
 async def spec_AIT(message: Message):
-    await message.answer()
-
+    bot.format = 3
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("АИТ"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE))
+                         )
 
 @vk.on.private_message(text=['Промышленное и гражданское строительство'])
 async def PGS(message: Message):
+    bot.napravl = 2
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -192,28 +233,60 @@ async def PGS(message: Message):
                 .add(Text('Очное обучение(ПГС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ПГС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ПГС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ПГС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ПГС)'])
 async def full_time_PGS(message: Message):
-    await message.answer()
+    bot.format = 1
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
+
 
 
 @vk.on.private_message(text=['Заочное обучение(ПГС)'])
 async def remote_PGS(message: Message):
-    await message.answer()
+    bot.format = 2
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(ПГС)'])
+@vk.on.private_message(text=['Очно-заочное(ПГС)'])
 async def spec_PGS(message: Message):
-    await message.answer()
+    bot.format = 3
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Промышленное и гражданское строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Транспортное строительство'])
 async def TS(message: Message):
+    bot.napravl = 3
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -221,28 +294,59 @@ async def TS(message: Message):
                 .add(Text('Очное обучение(ТС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ТС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ТС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ТС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ТС)'])
 async def full_time_TS(message: Message):
-    await message.answer()
+    bot.format = 1
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортное строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(ТС)'])
 async def remote_TS(message: Message):
-    await message.answer()
+    bot.format = 2
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортное строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(ТС)'])
+@vk.on.private_message(text=['Очно-заочное(ТС)'])
 async def spec_TS(message: Message):
-    await message.answer()
+    bot.format = 3
+    str = bot.get_napr()
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортное строительство"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Транспортные и энергетические системы'])
 async def TES(message: Message):
+    bot.napravl = 4
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -250,28 +354,65 @@ async def TES(message: Message):
                 .add(Text('Очное обучение(ТЭС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ТЭС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ТЭС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ТЭС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ТЭС)'])
 async def full_time_TES(message: Message):
-    await message.answer()
+    format = 1
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортные и энергетические системы"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(ТЭС)'])
 async def remote_TES(message: Message):
-    await message.answer()
+    format = 2
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортные и энергетические системы"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(ТЭС)'])
+@vk.on.private_message(text=['Очно-заочное(ТЭС)'])
 async def spec_TES(message: Message):
-    await message.answer()
+    format = 3
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Транспортные и энергетические системы"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Управление перевозками и логистика'])
 async def UPL(message: Message):
+    napravl = 5
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -279,28 +420,66 @@ async def UPL(message: Message):
                 .add(Text('Очное обучение(УПЛ)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(УПЛ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(УПЛ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(УПЛ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(УПЛ)'])
 async def full_time_UPL(message: Message):
-    await message.answer()
+    format = 1
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Управление перевозками и логистика"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(УПЛ)'])
 async def remote_UPL(message: Message):
-    await message.answer()
+    format = 2
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Управление перевозками и логистика"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(УПЛ)'])
+@vk.on.private_message(text=['Очно-заочное(УПЛ)'])
 async def spec_UPL(message: Message):
-    await message.answer()
+    format = 3
+    str = ""
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Управление перевозками и логистика"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Факультет безотрывных форм обучения'])
 async def FBFO(message: Message):
+    napravl = 6
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -308,28 +487,65 @@ async def FBFO(message: Message):
                 .add(Text('Очное обучение(Факультет безотрывных форм обучения)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(Факультет безотрывных форм обучения)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(Факультет безотрывных форм обучения)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(Факультет безотрывных форм обучения)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(Факультет безотрывных форм обучения)'])
 async def full_time_FBFO(message: Message):
-    await message.answer()
+    format = 1
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Факультет безотрывных форм обучения"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(Факультет безотрывных форм обучения)'])
 async def remote_FBFO(message: Message):
-    await message.answer()
+    format = 2
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Факультет безотрывных форм обучения"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(Факультет безотрывных форм обучения)'])
+@vk.on.private_message(text=['Очно-заочное(Факультет безотрывных форм обучения)'])
 async def spec_FBFO(message: Message):
-    await message.answer()
+    format = 3
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Факультет безотрывных форм обучения"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Экономика и менеджмент'])
 async def EiT(message: Message):
+    napravl = 7
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -337,24 +553,113 @@ async def EiT(message: Message):
                 .add(Text('Очное обучение(ЭиМ)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ЭиМ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ЭиМ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ЭиМ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ЭиМ)'])
 async def full_time_EiT(message: Message):
-    await message.answer()
+    format = 1
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Экономика и менеджмент"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
 @vk.on.private_message(text=['Заочное обучение(ЭиМ)'])
 async def remote_EiT(message: Message):
-    await message.answer()
+    format = 2
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Экономика и менеджмент"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
 
 
-@vk.on.private_message(text=['Особая квота(ЭиМ)'])
+@vk.on.private_message(text=['Очно-заочное(ЭиМ)'])
 async def spec_EiT(message: Message):
-    await message.answer()
+    format = 3
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str, keyboard=(
+        Keyboard(one_time=False, inline=False)
+            .add(Text("Направления подготовки и специальности"))
+            .row()
+            .add(Text("Экономика и менеджмент"), color=KeyboardButtonColor.POSITIVE)
+            .row()
+            .add(Text("Главный раздел"), color=KeyboardButtonColor.POSITIVE)
+    ))
+
+@vk.on.private_message(text=["Необходимые вступительные испытания"])
+async def ekz_part(message: Message):
+    await message.answer(
+        message='Сданые экзамены: ',
+        keyboard=(
+            Keyboard(one_time=False, inline=False)
+                .add(Text("Русский язык,Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык,Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык,Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык,Математика, Физика/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык,Математика, Общ/(ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+        )
+    )
+
+@vk.on.private_message(text=['Русский язык,Математика, Физика'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(1):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык,Математика, Обществознание'])
+async def ekz_part_rmo(message: Message):
+    str = ""
+    for el in sdan_ekz_func(2):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык,Математика, Биология'])
+async def ekz_part_rmb(message: Message):
+    str = ""
+    for el in sdan_ekz_func(3):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык,Математика, Физика/(ИКТ)'])
+async def ekz_part_rmfi(message: Message):
+    str = ""
+    for el in sdan_ekz_func(4):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык,Математика, Общ/(ИКТ)'])
+async def ekz_part_rmoi(message: Message):
+    str = ""
+    for el in sdan_ekz_func(5):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Главные даты приёмной комиссии'])
@@ -368,23 +673,22 @@ async def menu(message: Message):
                 .add(Text('Очное обучение'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
-@vk.on.private_message(text=['Очное обучение'])
+'''@vk.on.private_message(text=['Очное обучение'])
 # Сама функция:
 async def min_points_part(message: Message):
     await message.answer("Часть 1:", attachment=o_ege1)
     await message.answer("Часть 2:", attachment=o_ege2)
 
-
 @vk.on.private_message(text=['Заочное обучение'])
 # Сама функция:
 async def min_points_part(message: Message):
     # Ответ на сообщение
-    await message.answer("Раздел заочное обучение")
+    await message.answer("Раздел заочное обучение")'''
 
 
 @vk.on.private_message(text=['Минимальные проходные баллы'])
@@ -426,13 +730,7 @@ async def questions_answers_part(message: Message):
 # Сама функция:
 async def contacts_part(message: Message):
     # Ответ на сообщение
-    await message.answer('Бакалавриат, специалитет, магистратура:' +
-                         '\nТелефон:8 (800) 200-97-90, 8 (812) 457-82-42' +
-                         '\nПочта:primkom@pgups.ru' +
-                         '\n' +
-                         '\nАспирантура:' +
-                         '\nТелефон:8 (812) 457-80-97' +
-                         '\nПочта:asp@pgups.ru')
+    await message.answer('Это раздел контактов!')
 
 
 @vk.on.private_message(text=['Оставить заявку'])
@@ -441,7 +739,33 @@ async def write_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это раздел!')
 
-#
+
+@vk.on.private_message(text=['+рассылка <txt>'])
+async def lsmsg(message: Message, txt):
+    if message.from_id == 518705815:
+        start_time = time.time()
+        conversations = await vk.api.messages.get_conversations(count=1, offset=0)
+        b = 0
+        user_name = await vk.api.users.get(message.from_id)
+        for i in range(conversations.count):
+            for offsett in range(conversations.count):
+                conversations1 = await vk.api.messages.get_conversations(count=1, offset=offsett)
+                try:
+                    a = conversations1.items[i].conversation.can_write.allowed
+                    if a == True:
+                        b += 1
+                        await vk.api.messages.send(peer_id=conversations1.items[i].conversation.peer.id, random_id=0,
+                                                   message=txt)
+                        print('Готово')
+                except:
+                    pass
+            break
+        end_time = time.time()
+        await vk.api.messages.send(peer_ids=[518705815], random_id=0,
+                                   message=f'Рассылка завершена за {round(end_time - start_time, 1)} секунд\nБыло найдено {conversations.count} человек\nОтослал {b} людям\nСоздал рассылку [id{message.from_id}|{user_name[0].first_name}]')
+
+
+
 bot.runBot()
 
 if __name__ == '__main__':
