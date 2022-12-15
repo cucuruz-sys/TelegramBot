@@ -168,26 +168,33 @@ async def AIT(message: Message):
 
         )
     )
-    print(napravl)
 #jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
     format = 1
-    print(napr_podg_func(napravl,format))
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(АИТ)'])
 async def remote_AIT(message: Message):
     format=2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(АИТ)'])
 async def spec_AIT(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Промышленное и гражданское строительство'])
@@ -208,20 +215,29 @@ async def PGS(message: Message):
 @vk.on.private_message(text=['Очное обучение(ПГС)'])
 async def full_time_PGS(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 
 @vk.on.private_message(text=['Заочное обучение(ПГС)'])
 async def remote_PGS(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(ПГС)'])
 async def spec_PGS(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Транспортное строительство'])
@@ -242,19 +258,28 @@ async def TS(message: Message):
 @vk.on.private_message(text=['Очное обучение(ТС)'])
 async def full_time_TS(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(ТС)'])
 async def remote_TS(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(ТС)'])
 async def spec_TS(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Транспортные и энергетические системы'])
@@ -275,19 +300,28 @@ async def TES(message: Message):
 @vk.on.private_message(text=['Очное обучение(ТЭС)'])
 async def full_time_TES(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(ТЭС)'])
 async def remote_TES(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(ТЭС)'])
 async def spec_TES(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Управление перевозками и логистика'])
@@ -308,19 +342,29 @@ async def UPL(message: Message):
 @vk.on.private_message(text=['Очное обучение(УПЛ)'])
 async def full_time_UPL(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(УПЛ)'])
 async def remote_UPL(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(УПЛ)'])
 async def spec_UPL(message: Message):
     format = 3
-    await message.answer(message='Подходящие направления: ')
+    str = ""
+    for el in napr_podg_func(napravl, format):
+        str += "Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][
+            2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Факультет безотрывных форм обучения'])
@@ -341,19 +385,28 @@ async def FBFO(message: Message):
 @vk.on.private_message(text=['Очное обучение(Факультет безотрывных форм обучения)'])
 async def full_time_FBFO(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(Факультет безотрывных форм обучения)'])
 async def remote_FBFO(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(Факультет безотрывных форм обучения)'])
 async def spec_FBFO(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Экономика и менеджмент'])
@@ -374,19 +427,81 @@ async def EiT(message: Message):
 @vk.on.private_message(text=['Очное обучение(ЭиМ)'])
 async def full_time_EiT(message: Message):
     format = 1
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Заочное обучение(ЭиМ)'])
 async def remote_EiT(message: Message):
     format = 2
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Очно-заочное(ЭиМ)'])
 async def spec_EiT(message: Message):
     format = 3
-    await message.answer()
+    str = ""
+    for el in napr_podg_func(napravl,format):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=["Необходимые вступительные испытания"])
+async def ekz_part(message: Message):
+    await message.answer(
+        message='Сданые экзамены: ',
+        keyboard=(
+            Keyboard(one_time=False, inline=False)
+                .add(Text("Русский язык, Математика, Физика"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык, Математика, Обществознание"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык, Математика, Биология"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык, Математика, Физика (ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Русский язык, Математика, Обществознание (ИКТ)"), color=KeyboardButtonColor.POSITIVE)
+        )
+    )
+
+@vk.on.private_message(text=['Русский язык, Математика, Физика'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(1):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык, Математика, Обществознание'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(2):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык, Математика, Биология'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(3):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык, Математика, Физика (ИКТ)'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(4):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
+
+@vk.on.private_message(text=['Русский язык, Математика, Обществознание (ИКТ)'])
+async def ekz_part_rmf(message: Message):
+    str = ""
+    for el in sdan_ekz_func(5):
+        str+="Название направления: " + el[0] + "\n" + "Необходимые экзамены: " + el[1][0] + el[1][1] + el[1][2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
+    await message.answer(message=str)
 
 
 @vk.on.private_message(text=['Главные даты приёмной комиссии'])
