@@ -47,7 +47,6 @@ class VkBot:
                 2] + "\n" + "Стоимость обучения в семестр: " + el[2] + "\n\n"
         return str
 
-
 bot = VkBot()
 vk = bot.get_Vk()
 sqlite_create_table_query = ''
