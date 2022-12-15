@@ -8,10 +8,9 @@ from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
 from vkbottle.bot import Bot, Message
 from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
-#import Keyboard
+# import Keyboard
 from random import randint
 from vk_api.longpoll import VkLongPoll, VkEventType
-
 
 '''class Vk_bot:
     def __init__(self, user_id):
@@ -31,6 +30,7 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 
 '''
 
+
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id": randint(0, 100000)})
 
@@ -47,7 +47,66 @@ vk = Bot(bot_token, bot_group_id)
 async def privet(message: Message):
     # Ответ на сообщение
     await message.answer('Приветик!')
+
+
 #
+
+# Меню
+@vk.on.private_message(text=['/mm', 'menu', 'меню'])
+@vk.on.private_message(payload={'cmd': 'menu'})
+async def menu(message: Message):
+    await message.answer(
+        # Сообщение при отправлении клавиатуры
+        message='Меню: ',
+        # Клавиатура
+        keyboard=(
+            # one_time - True - одноразовая клавиатура, False - постоянная клавиатура
+            # inline - True - клавиатура прикрепляется к сообщению(РАССМОТРИМ), False - клавиаутра в стандартном положении
+            # .add - добавить кнопку
+            # .row - отступ
+            # Цвета: POSITIVE - Ярко зеленый, SECONDARY(можно нечего не указывать) - БЛЕДНО БЕЛЫЙ
+            # PRIMARY - СИНИЙ, NEGATIVE - КРАСНЫЙ
+
+            Keyboard(one_time=False, inline=False)
+                .add(Text('Главный раздел'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Направления подготовки и специальности'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text('Главные даты приёмной комиссии'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Минимальные проходные баллы'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text('Дополнительное обучение'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Платные образовательные услуги'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text('Об университете'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Вопросы и ответы'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text('Контакты'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Оставить заявку'), color=KeyboardButtonColor.POSITIVE)
+        )
+    )
+
+
+@vk.on.private_message(text=['Главный раздел'])
+# Сама функция:
+async def privet(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это главный раздел!')
+
+
+@vk.on.private_message(text=['Направления подготовки и специальности'])
+# Сама функция:
+async def privet(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это направления подготовки и специальности!')
+
+
+@vk.on.private_message(text=['Главные даты приёмной комиссии'])
+# Сама функция:
+async def privet(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это главные даты приёмной комиссии!')
+
+
 vk.run_forever()
 '''
 for event in longpoll.listen():
