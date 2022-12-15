@@ -3,6 +3,7 @@ import asyncio
 import requests
 import bs4
 import time, math
+import sqllite3
 from Beautiful_soup_parser import proh_ball_func
 from typing import Optional
 from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError, BaseStateGroup
@@ -13,10 +14,9 @@ from vkbottle.tools import PhotoMessageUploader
 from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
 
-
-napravl=0
-format=0
-ekz=0
+napravl = 0
+format = 0
+ekz = 0
 
 
 class VkBot:
@@ -47,7 +47,7 @@ bot = VkBot()
 vk = bot.get_Vk()
 
 
-@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin) # обработка подписки
+@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin)  # обработка подписки
 async def group_join_handler(event: GroupTypes.GroupJoin):
     try:
         await vk.api.messages.send(
@@ -60,8 +60,8 @@ async def group_join_handler(event: GroupTypes.GroupJoin):
     except VKAPIError(901):
         pass
 
-#
-@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin) # обработка отписки
+
+@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin)  # обработка отписки
 async def group_join_handler(event: GroupTypes.GroupLeave):
     try:
         await vk.api.messages.send(
@@ -109,8 +109,6 @@ async def menu(message: Message):
         keyboard=(
             Keyboard(one_time=False, inline=False)
                 .add(Text("Направления подготовки и специальности"), color=KeyboardButtonColor.POSITIVE)
-                .row()
-                .add(Text("Необходимые вступительные испытания"), color=KeyboardButtonColor.POSITIVE)
                 .row()
                 .add(Text("Главные даты приёмной комиссии"), color=KeyboardButtonColor.POSITIVE)
                 .row()
@@ -168,7 +166,7 @@ async def AIT(message: Message):
         )
     )
     print(x)
-#jopa
+
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
@@ -375,17 +373,18 @@ async def menu(message: Message):
     )
 
 
-'''@vk.on.private_message(text=['Очное обучение'])
+@vk.on.private_message(text=['Очное обучение'])
 # Сама функция:
 async def min_points_part(message: Message):
     await message.answer("Часть 1:", attachment=o_ege1)
     await message.answer("Часть 2:", attachment=o_ege2)
 
+
 @vk.on.private_message(text=['Заочное обучение'])
 # Сама функция:
 async def min_points_part(message: Message):
     # Ответ на сообщение
-    await message.answer("Раздел заочное обучение")'''
+    await message.answer("Раздел заочное обучение")
 
 
 @vk.on.private_message(text=['Минимальные проходные баллы'])
@@ -427,7 +426,13 @@ async def questions_answers_part(message: Message):
 # Сама функция:
 async def contacts_part(message: Message):
     # Ответ на сообщение
-    await message.answer('Это раздел контактов!')
+    await message.answer('Бакалавриат, специалитет, магистратура:' +
+                         '\nТелефон:8 (800) 200-97-90, 8 (812) 457-82-42' +
+                         '\nПочта:primkom@pgups.ru' +
+                         '\n' +
+                         '\nАспирантура:' +
+                         '\nТелефон:8 (812) 457-80-97' +
+                         '\nПочта:asp@pgups.ru')
 
 
 @vk.on.private_message(text=['Оставить заявку'])
@@ -435,32 +440,6 @@ async def contacts_part(message: Message):
 async def write_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это раздел!')
-
-
-@vk.on.private_message(text=['+рассылка <txt>'])
-async def lsmsg(message: Message, txt):
-    if message.from_id == 518705815:
-        start_time = time.time()
-        conversations = await vk.api.messages.get_conversations(count=1, offset=0)
-        b = 0
-        user_name = await vk.api.users.get(message.from_id)
-        for i in range(conversations.count):
-            for offsett in range(conversations.count):
-                conversations1 = await vk.api.messages.get_conversations(count=1, offset=offsett)
-                try:
-                    a = conversations1.items[i].conversation.can_write.allowed
-                    if a == True:
-                        b += 1
-                        await vk.api.messages.send(peer_id=conversations1.items[i].conversation.peer.id, random_id=0,
-                                                   message=txt)
-                        print('Готово')
-                except:
-                    pass
-            break
-        end_time = time.time()
-        await vk.api.messages.send(peer_ids=[518705815], random_id=0,
-                                   message=f'Рассылка завершена за {round(end_time - start_time, 1)} секунд\nБыло найдено {conversations.count} человек\nОтослал {b} людям\nСоздал рассылку [id{message.from_id}|{user_name[0].first_name}]')
-
 
 
 bot.runBot()
