@@ -441,7 +441,7 @@ async def write_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это раздел!')
 
-
+#
 bot.runBot()
 
 if __name__ == '__main__':
