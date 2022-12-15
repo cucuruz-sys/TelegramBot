@@ -1,5 +1,6 @@
 import vk_api
 import random
+import Keyboard
 from random import randint
 from vk_api.longpoll import VkLongPoll, VkEventType
 
@@ -9,10 +10,18 @@ class Vk_bot:
     def __init__(self):
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
+        self._KEYBOARD =
         self._COMMANDS = ["Старт", "Главный раздел", "Направления подготовки и специальности",
                           "Главные даты приёмной комиссии", "Минимальные проходные баллы", "Дополнительное обучение",
                           "Платные образовательные услуги", "Об университете", "Вопросы и ответы", "Контакты",
                           "Оставить заявку"]
+
+    def _get_user_name_from_vk_id(self, user_id):
+        request = requests.get("https://vk.com/id" + str(user_id))
+        bs = bs4.BeautifulSoup(request.text, "html.parser")
+        user_name = self._clean_all_tag_from_str(bs.findAll("title")[0])
+        return user_name.split()[0]
+
 
 
 def write_msg(user_id, message):
