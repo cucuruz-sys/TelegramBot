@@ -1,4 +1,3 @@
-import vk_api
 import random
 import asyncio
 import requests
@@ -10,7 +9,6 @@ from vkbottle.bot import Bot, Message
 from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
 from random import randint
-from vk_api.longpoll import VkLongPoll, VkEventType
 
 
 '''class Vk_bot:
