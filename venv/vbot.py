@@ -1,3 +1,4 @@
+import vk_api
 import random
 import asyncio
 import requests
@@ -10,6 +11,7 @@ from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
 # import Keyboard
 from random import randint
+from vk_api.longpoll import VkLongPoll, VkEventType
 
 
 '''class Vk_bot:
@@ -39,6 +41,8 @@ token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7
 
 bot_token = token
 bot_group_id = 217770282
+o_ege1 = '1-o_bs_ok_ege'
+o_ege2 = '1-o_bs_p_ege'
 vk = Bot(bot_token, bot_group_id)
 
 
@@ -101,10 +105,40 @@ async def specialty_part(message: Message):
 
 
 @vk.on.private_message(text=['Главные даты приёмной комиссии'])
+async def menu(message: Message):
+    await message.answer(
+        # Сообщение при отправлении клавиатуры
+        message='Меню: ',
+        # Клавиатура
+        keyboard=(
+            # one_time - True - одноразовая клавиатура, False - постоянная клавиатура
+            # inline - True - клавиатура прикрепляется к сообщению(РАССМОТРИМ), False - клавиаутра в стандартном положении
+            # .add - добавить кнопку
+            # .row - отступ
+            # Цвета: POSITIVE - Ярко зеленый, SECONDARY(можно нечего не указывать) - БЛЕДНО БЕЛЫЙ
+            # PRIMARY - СИНИЙ, NEGATIVE - КРАСНЫЙ
+            Keyboard(one_time=False, inline=False)
+                .add(Text('Очное обучение'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Заочное обучение'), color=KeyboardButtonColor.POSITIVE)
+                .row()
+                .add(Text("Особая квота"), color=KeyboardButtonColor.POSITIVE)
+        )
+    )
+
+
+@vk.on.private_message(text=['Очное обучение'])
 # Сама функция:
-async def dates_part(message: Message):
+async def min_points_part(message: Message):
     # Ответ на сообщение
-    await message.answer('Это главные даты приёмной комиссии!')
+    await message.answer("Раздел очное обучение", attachment=o_ege1)
+    await message.answer("Раздел очное обучение", attachment=o_ege2)
+
+
+@vk.on.private_message(text=['Заочное обучение'])
+# Сама функция:
+async def min_points_part(message: Message):
+    # Ответ на сообщение
+    await message.answer("Раздел заочное обучение")
 
 
 @vk.on.private_message(text=['Минимальные проходные баллы'])
