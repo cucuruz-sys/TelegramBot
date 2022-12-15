@@ -4,3 +4,5 @@ def main():
     downloadImages(item, 5, 'D:/parser/' + item)
 if __name__ == "__main__":
     main()
+
+фвыфв
