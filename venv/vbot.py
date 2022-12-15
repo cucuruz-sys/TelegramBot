@@ -1,12 +1,15 @@
 import vk_api
+import random
+from random import randint
+from vk_api.longpoll import VkLongPoll, VkEventType
 
-from vk_api.longpool import VkLongPoll, VkEventType
 
-token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
 
 def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message})
+    vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id" : randint(0, 1000000)})
 
+
+token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
 
 vk = vk_api.VkApi(token=token)
 
@@ -17,16 +20,29 @@ for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
         if event.to_me:
             request = event.text
-            if(request == "Старт"):
+            if request == "Старт":
                 write_msg(event.user_id, "Добро пожаловать в чат бот приёмной комиссии ПГУПС!")
-                write_msg(event.user_id, "Главный раздел")
-                write_msg(event.user_id, "Направление подготовки и специальности")
-                write_msg(event.user_id, "Необходимые вступительные испытания")
-                write_msg(event.user_id, "Главные даты приёмной комиссии")
-                write_msg(event.user_id, "Минимальные проходные баллы")
-                write_msg(event.user_id, "Дополнительное обучение")
-                write_msg(event.user_id, "Платные образовательные услуги")
-                write_msg(event.user_id, "Об университете")
-                write_msg(event.user_id, "Вопросы и ответы")
-                write_msg(event.user_id, "Контакты")
-                write_msg(event.user_id, "Оставить заявку")
+            if request == "Главный раздел":
+                x = 0
+            if request == "Направление подготовки и специальности":
+                x = 0
+            if request == "Главные даты приёмной комиссии":
+                x = 0
+            if request == "Минимальные проходные баллы":
+                x = 0
+            if request == "Дополнительное обучение":
+                x = 0
+            if request == "Платные образовательные услуги":
+                x = 0
+            if request == "Об университете":
+                x = 0
+            if request == "Вопросы и ответы":
+                x = 0
+            if request == "Контакты":
+                x = 0
+            if request == "Оставить заявку":
+                x = 0
+
+
+if __name__ == '__main__':
+    main()
