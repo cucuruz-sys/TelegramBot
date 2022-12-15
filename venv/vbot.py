@@ -12,6 +12,7 @@ from vkbottle.tools import DocMessagesUploader
 from vkbottle.tools import PhotoMessageUploader
 from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
+import sqlite3
 
 
 napravl=0
