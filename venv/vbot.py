@@ -34,8 +34,8 @@ token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7
 
 bot_token = token
 bot_group_id = 217770282
-o_ege1 = '1-o_bs_ok_ege'
-o_ege2 = '1-o_bs_p_ege'
+o_ege1 = '/Images/1-o_bs_ok_ege.jpg'
+o_ege2 = '/Images/1-o_bs_p_ege.jpg'
 vk = Bot(bot_token, bot_group_id)
 
 
@@ -57,12 +57,6 @@ async def menu(message: Message):
         message='Меню: ',
         # Клавиатура
         keyboard=(
-            # one_time - True - одноразовая клавиатура, False - постоянная клавиатура
-            # inline - True - клавиатура прикрепляется к сообщению(РАССМОТРИМ), False - клавиаутра в стандартном положении
-            # .add - добавить кнопку
-            # .row - отступ
-            # Цвета: POSITIVE - Ярко зеленый, SECONDARY(можно нечего не указывать) - БЛЕДНО БЕЛЫЙ
-            # PRIMARY - СИНИЙ, NEGATIVE - КРАСНЫЙ
 
             Keyboard(one_time=False, inline=False)
                 .add(Text('Главный раздел'), color=KeyboardButtonColor.POSITIVE)
@@ -123,8 +117,8 @@ async def menu(message: Message):
 # Сама функция:
 async def min_points_part(message: Message):
     # Ответ на сообщение
-    await message.answer("Раздел очное обучение", attachment=o_ege1)
-    await message.answer("Раздел очное обучение", attachment=o_ege2)
+    await message.answer("Часть 1:", attachment=o_ege1)
+    await message.answer("Часть 2:", attachment=o_ege2)
 
 
 @vk.on.private_message(text=['Заочное обучение'])
@@ -138,7 +132,6 @@ async def min_points_part(message: Message):
 # Сама функция:
 async def min_points_part(message: Message):
     ballArr = proh_ball_func()
-    print(ballArr)
     str = ""
     for line in ballArr:
         str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n\n"
