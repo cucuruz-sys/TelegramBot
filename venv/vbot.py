@@ -102,7 +102,7 @@ async def min_points_part(message: Message):
 async def min_points_part(message: Message):
     # Ответ на сообщение
     await message.answer("Раздел заочное обучение")
-#
+
 
 @vk.on.private_message(text=['Минимальные проходные баллы'])
 # Сама функция:
@@ -132,7 +132,7 @@ async def paid_learn_part(message: Message):
 # Сама функция:
 async def about_us_part(message: Message):
     # Ответ на сообщение
-    await message.answer('Это раздел об университете!')
+    await message.answer('https://www.pgups.ru/sveden/common/')
 
 
 @vk.on.private_message(text=['Вопросы и ответы'])
