@@ -129,7 +129,7 @@ async def AIT(message: Message):
                 .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
-
+#jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
