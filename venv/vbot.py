@@ -2,9 +2,10 @@ import random
 import asyncio
 import requests
 import bs4
+import time, math
 from Beautiful_soup_parser import proh_ball_func
 from typing import Optional
-from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
+from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError, BaseStateGroup
 from vkbottle.bot import Bot, Message
 from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
@@ -41,12 +42,41 @@ bot = VkBot()
 vk = bot.get_Vk()
 
 
+@vk.on.raw_event(GroupEventType.GROUP_JOIN, dataclass=GroupTypes.GroupJoin) # обработка подписки
+async def group_join_handler(event: GroupTypes.GroupJoin):
+    try:
+        await vk.api.messages.send(
+            peer_id=event.object.user_id,
+            message="Спасибо, что подписались на наши обновления!",
+            random_id=0
+
+        )
+        await message.answer(message)
+    except VKAPIError(901):
+        pass
+
+
+@vk.on.raw_event(GroupEventType.GROUP_LEAVE, dataclass=GroupTypes.GroupJoin) # обработка отписки
+async def group_join_handler(event: GroupTypes.GroupLeave):
+    try:
+        await vk.api.messages.send(
+            peer_id=event.object.user_id,
+            message="Напишите причину вашей отписки, чтобы мы могли улучшать нашу группу",
+            random_id=0
+        )
+        await message.answer(message)
+    except VKAPIError(901):
+        pass
+
+
 @vk.on.private_message(text=['Начать', 'Ку', 'Привет'])
 # Сама функция:
 async def privet(message: Message):
     # Ответ на сообщение
     await message.answer('Приветик!')
 
+
+#
 
 # Меню
 @vk.on.private_message(text=['/mm', 'menu', 'меню'])
@@ -396,6 +426,32 @@ async def contacts_part(message: Message):
 async def write_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это раздел!')
+
+
+@vk.on.private_message(text=['+рассылка <txt>'])
+async def lsmsg(message: Message, txt):
+    if message.from_id == 518705815:
+        start_time = time.time()
+        conversations = await vk.api.messages.get_conversations(count=1, offset=0)
+        b = 0
+        user_name = await vk.api.users.get(message.from_id)
+        for i in range(conversations.count):
+            for offsett in range(conversations.count):
+                conversations1 = await vk.api.messages.get_conversations(count=1, offset=offsett)
+                try:
+                    a = conversations1.items[i].conversation.can_write.allowed
+                    if a == True:
+                        b += 1
+                        await vk.api.messages.send(peer_id=conversations1.items[i].conversation.peer.id, random_id=0,
+                                                   message=txt)
+                        print('Готово')
+                except:
+                    pass
+            break
+        end_time = time.time()
+        await vk.api.messages.send(peer_ids=[518705815], random_id=0,
+                                   message=f'Рассылка завершена за {round(end_time - start_time, 1)} секунд\nБыло найдено {conversations.count} человек\nОтослал {b} людям\nСоздал рассылку [id{message.from_id}|{user_name[0].first_name}]')
+
 
 
 bot.runBot()
