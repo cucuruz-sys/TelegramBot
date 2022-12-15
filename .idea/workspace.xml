@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="nigga">
-      <change afterPath="$PROJECT_DIR$/chromedriver.exe" afterDir="false" />
+    <list default="true" id="9fcf1561-e85b-460a-9a52-7f34e046e68d" name="Changes" comment="Класс кейборд">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Keyboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,10 +143,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.2" />
+      <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.Images" />
       <item itemvalue="Python.Parser" />
-      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.2" />
       <item itemvalue="Python.gitgovno" />
     </list>
     <recent_temporary>
@@ -209,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671047373446</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Класс кейборд">
+      <created>1671090338048</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671090338048</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,6 +233,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
     <MESSAGE value="nigga" />
-    <option name="LAST_COMMIT_MESSAGE" value="nigga" />
+    <MESSAGE value="Класс кейборд" />
+    <option name="LAST_COMMIT_MESSAGE" value="Класс кейборд" />
   </component>
 </project>

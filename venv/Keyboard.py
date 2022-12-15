@@ -1,5 +1,9 @@
 from utils import sjson_dumps
-
+from typing import Optional
+from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
+from vkbottle.bot import Bot, Message
+from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
+from vkbottle.tools import DocMessagesUploader
 
 MAX_BUTTONS_ON_LINE = 5
 MAX_DEFAULT_LINES = 10
