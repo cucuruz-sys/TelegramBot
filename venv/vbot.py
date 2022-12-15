@@ -164,7 +164,7 @@ async def AIT(message: Message):
                 .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(АИТ)"), color=KeyboardButtonColor.POSITIVE)
 
         )
     )
@@ -173,21 +173,25 @@ async def AIT(message: Message):
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
 async def full_time_AIT(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(АИТ)'])
 async def remote_AIT(message: Message):
+    format=2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(АИТ)'])
+@vk.on.private_message(text=['Очно-заочное(АИТ)'])
 async def spec_AIT(message: Message):
+    format = 3
     await message.answer()
 
 
 @vk.on.private_message(text=['Промышленное и гражданское строительство'])
 async def PGS(message: Message):
+    napravl = 2
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -195,28 +199,33 @@ async def PGS(message: Message):
                 .add(Text('Очное обучение(ПГС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ПГС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ПГС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ПГС)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ПГС)'])
 async def full_time_PGS(message: Message):
+    format = 1
     await message.answer()
+
 
 
 @vk.on.private_message(text=['Заочное обучение(ПГС)'])
 async def remote_PGS(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(ПГС)'])
+@vk.on.private_message(text=['Очно-заочное(ПГС)'])
 async def spec_PGS(message: Message):
+    format = 3
     await message.answer()
 
 
 @vk.on.private_message(text=['Транспортное строительство'])
 async def TS(message: Message):
+    napravl = 3
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -224,28 +233,32 @@ async def TS(message: Message):
                 .add(Text('Очное обучение(ТС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ТС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ТС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ТС)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ТС)'])
 async def full_time_TS(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(ТС)'])
 async def remote_TS(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(ТС)'])
+@vk.on.private_message(text=['Очно-заочное(ТС)'])
 async def spec_TS(message: Message):
+    format = 3
     await message.answer()
 
 
 @vk.on.private_message(text=['Транспортные и энергетические системы'])
 async def TES(message: Message):
+    napravl = 4
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -253,28 +266,32 @@ async def TES(message: Message):
                 .add(Text('Очное обучение(ТЭС)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ТЭС)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ТЭС)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ТЭС)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ТЭС)'])
 async def full_time_TES(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(ТЭС)'])
 async def remote_TES(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(ТЭС)'])
+@vk.on.private_message(text=['Очно-заочное(ТЭС)'])
 async def spec_TES(message: Message):
+    format = 3
     await message.answer()
 
 
 @vk.on.private_message(text=['Управление перевозками и логистика'])
 async def UPL(message: Message):
+    napravl = 5
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -282,28 +299,33 @@ async def UPL(message: Message):
                 .add(Text('Очное обучение(УПЛ)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(УПЛ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(УПЛ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(УПЛ)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(УПЛ)'])
 async def full_time_UPL(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(УПЛ)'])
 async def remote_UPL(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(УПЛ)'])
+@vk.on.private_message(text=['Очно-заочное(УПЛ)'])
 async def spec_UPL(message: Message):
-    await message.answer()
+    format = 3
+    await message.answer(message='Подходящие направления: ')
+    print("nigger")
 
 
 @vk.on.private_message(text=['Факультет безотрывных форм обучения'])
 async def FBFO(message: Message):
+    napravl = 6
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -311,28 +333,32 @@ async def FBFO(message: Message):
                 .add(Text('Очное обучение(Факультет безотрывных форм обучения)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(Факультет безотрывных форм обучения)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(Факультет безотрывных форм обучения)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(Факультет безотрывных форм обучения)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(Факультет безотрывных форм обучения)'])
 async def full_time_FBFO(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(Факультет безотрывных форм обучения)'])
 async def remote_FBFO(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(Факультет безотрывных форм обучения)'])
+@vk.on.private_message(text=['Очно-заочное(Факультет безотрывных форм обучения)'])
 async def spec_FBFO(message: Message):
+    format = 3
     await message.answer()
 
 
 @vk.on.private_message(text=['Экономика и менеджмент'])
 async def EiT(message: Message):
+    napravl = 7
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
@@ -340,23 +366,26 @@ async def EiT(message: Message):
                 .add(Text('Очное обучение(ЭиМ)'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение(ЭиМ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(ЭиМ)"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное(ЭиМ)"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
 
 @vk.on.private_message(text=['Очное обучение(ЭиМ)'])
 async def full_time_EiT(message: Message):
+    format = 1
     await message.answer()
 
 
 @vk.on.private_message(text=['Заочное обучение(ЭиМ)'])
 async def remote_EiT(message: Message):
+    format = 2
     await message.answer()
 
 
-@vk.on.private_message(text=['Особая квота(ЭиМ)'])
+@vk.on.private_message(text=['Очно-заочное(ЭиМ)'])
 async def spec_EiT(message: Message):
+    format = 3
     await message.answer()
 
 
@@ -371,7 +400,7 @@ async def menu(message: Message):
                 .add(Text('Очное обучение'), color=KeyboardButtonColor.POSITIVE)
                 .add(Text('Заочное обучение'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота"), color=KeyboardButtonColor.POSITIVE)
+                .add(Text("Очно-заочное"), color=KeyboardButtonColor.POSITIVE)
         )
     )
 
