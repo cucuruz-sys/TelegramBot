@@ -1,4 +1,3 @@
-import vk_api
 import random
 import asyncio
 import requests
@@ -11,7 +10,6 @@ from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
 # import Keyboard
 from random import randint
-from vk_api.longpoll import VkLongPoll, VkEventType
 
 
 '''class Vk_bot:
@@ -112,10 +110,12 @@ async def dates_part(message: Message):
 @vk.on.private_message(text=['Минимальные проходные баллы'])
 # Сама функция:
 async def min_points_part(message: Message):
-    # Ответ на сообщение
-    print(proh_ball_func())
-    str =
-    await message.answer("j")
+    ballArr = proh_ball_func()
+    print(ballArr)
+    str = ""
+    for line in ballArr:
+        str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n"
+    await message.answer(str)
 
 
 @vk.on.private_message(text=['Дополнительное обучение'])
