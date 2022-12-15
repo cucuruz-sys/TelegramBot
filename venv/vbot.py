@@ -13,25 +13,6 @@ from vkbottle_types.objects import PhotosPhoto, PhotosPhotoSizes
 from random import randint
 
 
-'''class Vk_bot:
-    def __init__(self, user_id):
-        self._USER_ID = user_id
-        # self._USERNAME = self._get_user_name_from_vk_id(user_id)
-
-        self._COMMANDS = ["Старт", "Главный раздел", "Направления подготовки и специальности",
-                          "Главные даты приёмной комиссии", "Минимальные проходные баллы", "Дополнительное обучение",
-                          "Платные образовательные услуги", "Об университете", "Вопросы и ответы", "Контакты",
-                          "Оставить заявку"]
-
-   def _get_user_name_from_vk_id(self, user_id):
-        request = requests.get("https://vk.com/id" + str(user_id))
-        bs = bs4.BeautifulSoup(request.text, "html.parser")
-        user_name = self._clean_all_tag_from_str(bs.findAll("title")[0])
-        return user_name.split()[0]
-
-'''
-
-
 token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
 
 bot_token = token
