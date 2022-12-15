@@ -69,3 +69,14 @@ class Keyboard(obj):
                 'label': label,
             }
         })
+
+    def add_line(self):
+        if self.inline:
+            if len(self.lines) >= MAX_INLINE_LINES:
+                raise ValueError(f'Max {MAX_INLINE_LINES} lines for inline keyboard')
+        else:
+            if len(self.lines) >= MAX_DEFAULT_LINES:
+                raise ValueError(f'Max {MAX_DEFAULT_LINES} lines for default keyboard')
+
+        self.lines.append([])
+
