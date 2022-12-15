@@ -156,18 +156,19 @@ async def specialty_part(message: Message):
 
 @vk.on.private_message(text=["АИТ"])
 async def AIT(message: Message):
+    napravl=1
     await message.answer(
         message='Формат обучения: ',
         keyboard=(
             Keyboard(one_time=False, inline=False)
-                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=1)
-                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE, format=2)
+                .add(Text('Очное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
+                .add(Text('Заочное обучение(АИТ)'), color=KeyboardButtonColor.POSITIVE)
                 .row()
-                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE, format=3)
+                .add(Text("Особая квота(АИТ)"), color=KeyboardButtonColor.POSITIVE)
 
         )
     )
-    print(x)
+    print(napravl)
 #jopa
 
 @vk.on.private_message(text=['Очное обучение(АИТ)'])
