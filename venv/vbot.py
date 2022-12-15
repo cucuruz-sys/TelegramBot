@@ -9,7 +9,6 @@ from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
 from vkbottle.bot import Bot, Message
 from vkbottle import Keyboard, KeyboardButtonColor, Text, OpenLink
 from vkbottle.tools import DocMessagesUploader
-# import Keyboard
 from random import randint
 from vk_api.longpoll import VkLongPoll, VkEventType
 
@@ -31,10 +30,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
         return user_name.split()[0]
 
 '''
-
-
-def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message, "random_id": randint(0, 100000)})
 
 
 token = "vk1.a.3-YxoDnZ_0tnqd97ikODErQFX1DxvwOGC9nRyTULXCcclGbfONcP91cRB-ozUBKW7CHxETUbch_BuCKrMEihqZWnjItbWUfDgxauBfrOo2DF7j2s_pLEEQsdZUCZSXLLtcoTxbjAk81RGkDpewkGuvlXJoX4tKvnN2wqmqz58rNWQoyZ9WycH0-YMG-JsxCKYhv8p_6uTvx3InZaoMWXRg"
@@ -148,7 +143,7 @@ async def min_points_part(message: Message):
     print(ballArr)
     str = ""
     for line in ballArr:
-        str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n"
+        str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n\n"
     await message.answer(str)
 
 
