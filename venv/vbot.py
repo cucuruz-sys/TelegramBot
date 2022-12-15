@@ -114,7 +114,7 @@ async def min_points_part(message: Message):
     print(ballArr)
     str = ""
     for line in ballArr:
-        str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n"
+        str += line[0] + "\n\t2019 год: " + line[1] + ";\t2020 год: " + line[2] + ";\t2021 год: " + line[3] + "\n\n"
     await message.answer(str)
 
 
