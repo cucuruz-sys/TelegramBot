@@ -3,6 +3,7 @@ import random
 import asyncio
 import requests
 import bs4
+from Beautiful_soup_parser import proh_ball_func
 from typing import Optional
 from vkbottle import GroupEventType, GroupTypes, Keyboard, Text, VKAPIError
 from vkbottle.bot import Bot, Message
@@ -11,6 +12,7 @@ from vkbottle.tools import DocMessagesUploader
 # import Keyboard
 from random import randint
 from vk_api.longpoll import VkLongPoll, VkEventType
+
 
 '''class Vk_bot:
     def __init__(self, user_id):
@@ -88,55 +90,77 @@ async def menu(message: Message):
 
 @vk.on.private_message(text=['Главный раздел'])
 # Сама функция:
-async def privet(message: Message):
+async def main_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это главный раздел!')
 
 
 @vk.on.private_message(text=['Направления подготовки и специальности'])
 # Сама функция:
-async def privet(message: Message):
+async def specialty_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это направления подготовки и специальности!')
 
 
 @vk.on.private_message(text=['Главные даты приёмной комиссии'])
 # Сама функция:
-async def privet(message: Message):
+async def dates_part(message: Message):
     # Ответ на сообщение
     await message.answer('Это главные даты приёмной комиссии!')
 
 
+@vk.on.private_message(text=['Минимальные проходные баллы'])
+# Сама функция:
+async def min_points_part(message: Message):
+    # Ответ на сообщение
+    print(proh_ball_func())
+    str =
+    await message.answer("j")
+
+
+@vk.on.private_message(text=['Дополнительное обучение'])
+# Сама функция:
+async def dop_learn_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел дополнительное обучение!')
+
+
+@vk.on.private_message(text=['Платные образовательные услуги'])
+# Сама функция:
+async def paid_learn_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел платные образовательные услуги!')
+
+
+@vk.on.private_message(text=['Об университете'])
+# Сама функция:
+async def about_us_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел об университете!')
+
+
+@vk.on.private_message(text=['Вопросы и ответы'])
+# Сама функция:
+async def questions_answers_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел вопросов и ответов!')
+
+
+@vk.on.private_message(text=['Контакты'])
+# Сама функция:
+async def contacts_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел контактов!')
+
+
+@vk.on.private_message(text=['Оставить заявку'])
+# Сама функция:
+async def write_part(message: Message):
+    # Ответ на сообщение
+    await message.answer('Это раздел!')
+
+
 vk.run_forever()
-'''
-for event in longpoll.listen():
-    if event.type == VkEventType.MESSAGE_NEW:
-        if event.to_me:
-            request = event.text
-            bot = Vk_bot(event.user_id)
-            if request == "Старт":
-                write_msg(event.user_id, "Добро пожаловать в чат бот приёмной комиссии ПГУПС!")
-            if request == "Главный раздел":
-                x = 0
-            if request == "Направление подготовки и специальности":
-                x = 0
-            if request == "Главные даты приёмной комиссии":
-                x = 0
-            if request == "Минимальные проходные баллы":
-                x = 0
-            if request == "Дополнительное обучение":
-                x = 0
-            if request == "Платные образовательные услуги":
-                x = 0
-            if request == "Об университете":
-                x = 0
-            if request == "Вопросы и ответы":
-                x = 0
-            if request == "Контакты":
-                x = 0
-            if request == "Оставить заявку":
-                x = 0
-'''
 
 if __name__ == '__main__':
     main()
